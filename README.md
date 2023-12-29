@@ -1,4 +1,4 @@
-````
+
 # Finder application for Linux
 
 ## Overview
@@ -28,17 +28,14 @@ finder [options] [directory] [pattern]
 
 ### Examples
 
-```
-bashCopy code
-finder . "*.txt"                  # Finds all .txt files in the current directory and subdirectories.
-finder /usr "config" -c           # Searches for files named 'config' and files containing 'config' in /usr.
-finder -f "readme"                # Performs a fuzzy search for files/directories similar to 'readme'.
-finder / "log*.txt" -c -f         # Fuzzy searches for .log files in the root directory and checks their content.
-```
+    finder . "*.txt"                  # Finds all .txt files in the current directory and subdirectories.
+    finder /usr "config" -c           # Searches for files named 'config' and files containing 'config' in /usr.
+    finder -f "readme"                # Performs a fuzzy search for files/directories similar to 'readme'.
+    finder / "log*.txt" -c -f         # Fuzzy searches for .log files in the root directory and checks their content.
 
 ## Installation
 
-Compile and desploy as a single-file standalone console app with .NET 8.
+Compile and deploy as a single-file standalone console app with .NET 8.
 
 ## Contributing
 
@@ -49,10 +46,3 @@ Contributions to the Finder project are welcome. See [CONTRIBUTING.md](CONTRIBUT
 This project is licensed under the [MIT License](LICENSE).
 
 ## Acknowledgments
-
-
-```
-cssCopy code
-
-This README provides a clear and concise overview of your project, including how to use it, its features, and some example usage scenarios. Make sure to update the installation instructions and other specifics to match your actual project setup. Also, if you have a `CONTRIBUTING.md` file or a `LICENSE` file, ensure they are correctly linked in the README.
-```
