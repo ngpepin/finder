@@ -67,7 +67,10 @@ class Program
             else if (arg == "-f" || arg == "--fuzzy")
                 fuzzySearch = true;
             else if (arg == "-h" || arg == "--help")
+            {
                 PrintHelp();
+                return;
+            }
             else if (Directory.Exists(arg)) // Check if the argument is a directory
                 startDir = arg;
             else
