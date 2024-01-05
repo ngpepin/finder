@@ -20,7 +20,7 @@
  * Options:
  *     -c, --content  : Search within the content of text files as well as their names.
  *     -f, --fuzzy    : Enable fuzzy search. Matches files/directories that are approximately similar to the pattern.
- *     -h, --help     : Display help information about the command usage and options.
+ *     -h, --help     : Display help information about the command usage and options.  
  * 
  * Examples:
  *     finder . "*.txt"          : Finds all .txt files in the current directory and its subdirectories.
