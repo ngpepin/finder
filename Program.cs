@@ -6,7 +6,7 @@
  *     with enhanced features. It allows users to search for files and directories within a 
  *     specified path based on a pattern. It supports regular expressions, wildcard patterns, 
  *     and fuzzy search. Additionally, it can search within the content of text files.
- *
+ *    
  *     The application provides the functionality to exclude specific paths in the search 
  *     and to include exceptions to these exclusions. By default, it excludes '/mnt' 
  *     except for '/mnt/drive2'. This behavior can be customized in the code.
