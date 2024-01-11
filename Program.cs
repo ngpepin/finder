@@ -49,6 +49,11 @@ class Program
 {
     static readonly string[] DefaultExclusions = new[] { "/mnt" };
     static readonly string[] ExclusionExceptions = new[] { "/mnt/drive2" };
+    
+    // multiple exclusions and exceptions can be stipulated, e.g.,
+    // static readonly string[] DefaultExclusions = new[] { "/mnt", "/var", "/tmp" };
+    // static readonly string[] ExclusionExceptions = new[] { "/mnt/drive2", "/var/logs" };
+
 
     static void Main(string[] args)
     {
