@@ -80,16 +80,25 @@ class Program
         var regexPattern = ConvertWildcardToRegex(pattern);
         var regex = new Regex(regexPattern, RegexOptions.IgnoreCase);
 
-        TraverseDirectory(startDir, regex, searchContent, fuzzySearch, fuzzyThreshold, startDir, originalPattern);
+        HashSet<string> visitedDirectories = new HashSet<string>();
+        TraverseDirectory(startDir, regex, searchContent, fuzzySearch, fuzzyThreshold, startDir, originalPattern, visitedDirectories);
     }
-  
-    static void TraverseDirectory(string directory, Regex pattern, bool searchContent, bool fuzzySearch, int fuzzyThreshold, string startDir, string originalPattern)
+
+    static void TraverseDirectory(string directory, Regex pattern, bool searchContent, bool fuzzySearch, int fuzzyThreshold, string startDir, string originalPattern, HashSet<string> visitedDirectories)
     {
-        // Debug: remove to debug traversal: Console.WriteLine($"Searching in: {directory}"); // Debug: Show current directory
+        string fullDirectoryPath = Path.GetFullPath(directory);
+
+        // Check if the directory has already been visited to avoid infinite recursion
+        if (visitedDirectories.Contains(fullDirectoryPath))
+        {
+            Console.WriteLine($"Skipped: {directory} (already visited)");
+            return;
+        }
+        visitedDirectories.Add(fullDirectoryPath);
 
         if (ShouldExclude(directory, startDir))
         {
-            Console.WriteLine($"Excluded: {directory}"); // Show excluded directory
+            Console.WriteLine($"Excluded: {directory}");
             return;
         }
 
@@ -122,20 +131,20 @@ class Program
                         Console.WriteLine(file + " (content match)");
                     }
                 }
-
             }
 
             var directories = Directory.EnumerateDirectories(directory);
             foreach (var dir in directories)
             {
-                TraverseDirectory(dir, pattern, searchContent, fuzzySearch, fuzzyThreshold, startDir, originalPattern);
+                TraverseDirectory(dir, pattern, searchContent, fuzzySearch, fuzzyThreshold, startDir, originalPattern, visitedDirectories);
             }
         }
         catch (UnauthorizedAccessException e)
         {
-            Console.WriteLine($"Access denied: {e.Message}"); // Show access denied errors
+            Console.WriteLine($"Access denied: {e.Message}");
         }
     }
+
 
     static bool IsMatch(string text, Regex pattern, bool fuzzySearch, int fuzzyThreshold)
     {
@@ -168,7 +177,7 @@ class Program
             }
         return distances[lengthA, lengthB];
     }
-    
+
     static bool ShouldExclude(string directory, string startDir)
     {
         // If the start directory is within an excluded path, ignore the exclusion
