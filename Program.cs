@@ -96,13 +96,13 @@ class Program
         // Skip symbolic links and already visited directories
         if (IsSymbolic(directory) || !visitedDirectories.Add(fullDirectoryPath))
         {
-            Console.WriteLine($"Skipped: {directory} (symbolic link or already visited)");
+//          Console.WriteLine($"Skipped: {directory} (symbolic link or already visited)");
             return;
         }
 
         if (ShouldExclude(directory, startDir))
         {
-            Console.WriteLine($"Excluded: {directory}");
+//          Console.WriteLine($"Excluded: {directory}");
             return;
         }
 
