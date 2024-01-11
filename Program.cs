@@ -49,7 +49,7 @@ class Program
 {
     static readonly string[] DefaultExclusions = new[] { "/mnt" };
     static readonly string[] ExclusionExceptions = new[] { "/mnt/drive2" };
-    
+
     // multiple exclusions and exceptions can be stipulated, e.g.,
     // static readonly string[] DefaultExclusions = new[] { "/mnt", "/var", "/tmp" };
     // static readonly string[] ExclusionExceptions = new[] { "/mnt/drive2", "/var/logs" };
@@ -93,13 +93,12 @@ class Program
     {
         string fullDirectoryPath = Path.GetFullPath(directory);
 
-        // Check if the directory has already been visited to avoid infinite recursion
-        if (visitedDirectories.Contains(fullDirectoryPath))
+        // Skip symbolic links and already visited directories
+        if (IsSymbolic(directory) || !visitedDirectories.Add(fullDirectoryPath))
         {
-            Console.WriteLine($"Skipped: {directory} (already visited)");
+            Console.WriteLine($"Skipped: {directory} (symbolic link or already visited)");
             return;
         }
-        visitedDirectories.Add(fullDirectoryPath);
 
         if (ShouldExclude(directory, startDir))
         {
@@ -149,7 +148,11 @@ class Program
             Console.WriteLine($"Access denied: {e.Message}");
         }
     }
-
+    static bool IsSymbolic(string path)
+    {
+        var pathInfo = new FileInfo(path);
+        return (pathInfo.Attributes & FileAttributes.ReparsePoint) != 0;
+    }
 
     static bool IsMatch(string text, Regex pattern, bool fuzzySearch, int fuzzyThreshold)
     {
